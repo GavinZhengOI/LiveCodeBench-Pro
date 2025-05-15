@@ -13,7 +13,7 @@ class LLMInterface(ABC):
 
     def __init__(self):
         """
-        Initializes the LLMInterface with a predefined prompt for generating competitive programming solutions.
+        Initialize the LLMInterface with a predefined prompt for generating competitive programming solutions.
         """
         self.prompt = """
         You are a competitive programmer. You will be given a problem statement, please implement solution in C++. The execution time and memory limit are also stated in the statement so be aware of the complexity of the program. Please wrap the code in ```cpp and ``` so that it is properly formatted.
