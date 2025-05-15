@@ -2,9 +2,6 @@
 name = "livecodebench-pro"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Gavin",email = "gvzqaq@gmail.com"}
-]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

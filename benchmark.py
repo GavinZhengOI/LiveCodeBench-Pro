@@ -24,7 +24,7 @@ llm_instance = (
 # *******************************************************************************
 
 if __name__ == "__main__":
-    dataset = load_dataset("QAQAQAQAQ/LiveCodeBench-Pro")
+    dataset = load_dataset("anonymous1926/anonymous_dataset")
     result = []
     for split_name, split in dataset.items():
         for row in tqdm.tqdm(split, desc=f"Processing {split_name}"):

@@ -99,7 +99,7 @@ The main benchmarking script that:
 
 ### Dataset
 
-The benchmark uses the [QAQAQAQAQ/LiveCodeBench-Pro](https://huggingface.co/datasets/QAQAQAQAQ/LiveCodeBench-Pro) dataset from Hugging Face, which contains competitive programming problems with varying difficulty levels.
+The benchmark uses the [anonymous1926/anonymous_dataset](https://huggingface.co/datasets/anonymous1926/anonymous_dataset/) dataset from Hugging Face, which contains competitive programming problems with varying difficulty levels.
 
 
 
