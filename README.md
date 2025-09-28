@@ -97,14 +97,14 @@ The script will:
 5. Collect judge results and generate comprehensive statistics
 6. Save the results to `benchmark_result.json`
 
-### Step 4: Submit Your Results
+### (Optional) Step 4: Submit Your Results
 
-Send your `benchmark_result.json` file to zz4242@nyu.edu for evaluation.
+Email your `benchmark_result.json` file to zz4242@nyu.edu to have it displayed on the leaderboard.
 
 Please include the following information in your submission:
 - LLM name and version
 - Any specific details
-- Contact information for results
+- Contact information
 
 ## Understanding the Codebase
 
@@ -139,7 +139,7 @@ Utility functions for code processing:
 
 ### Dataset
 
-The benchmark uses the [anonymous1926/anonymous_dataset](https://huggingface.co/datasets/anonymous1926/anonymous_dataset/) dataset from Hugging Face, which contains competitive programming problems with varying difficulty levels.
+The benchmark uses the [QAQAQAQAQ/LiveCodeBench-Pro](https://huggingface.co/datasets/QAQAQAQAQ/LiveCodeBench-Pro) and [QAQAQAQAQ/LiveCodeBench-Pro-Testcase](https://huggingface.co/datasets/QAQAQAQAQ/LiveCodeBench-Pro-Testcase) datasets from Hugging Face, which contains competitive programming problems with varying difficulty levels.
 
 
 
