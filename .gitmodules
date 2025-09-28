@@ -1,0 +1,3 @@
+[submodule "LightCPVerifier"]
+	path = LightCPVerifier
+	url = https://github.com/YanagiOrigami/LightCPVerifier.git

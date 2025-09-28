@@ -1,7 +1,8 @@
 # LiveCodeBench Pro - LLM Benchmarking Toolkit
 
-![image](https://github.com/user-attachments/assets/3a7ace9a-ffb8-484c-83b2-96aa9037e846)
-
+<p align="center">
+<img width="1415" height="420" alt="image" src="https://github.com/user-attachments/assets/2795fbe8-df64-4664-b834-33346157973e" />
+</p>
 
 This repository contains a benchmarking toolkit for evaluating Large Language Models (LLMs) on competitive programming tasks. The toolkit provides a standardized way to test your LLM's code generation capabilities across a diverse set of problems.
 
@@ -13,15 +14,33 @@ LiveCodeBench Pro evaluates LLMs on their ability to generate solutions for prog
 
 ### Prerequisites
 
+- Ubuntu 20.04 or higher (or other distros with kernel version >= 3.10, and cgroup support. Refer to [go-judge](https://github.com/criyle/go-judge) for more details)
 - Python 3.12 or higher
 - pip package manager
+- docker (for running the judge server), and ensure the user has permission to run docker commands
 
 ### Installation
 
-Install the required dependencies:
+1. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
    ```
+   
+   Or install directly using `uv`:
+   ```bash
+   uv sync
+   ```
+
+2. Ensure Docker is installed and running:
+   ```bash
+   docker --version
+   ```
+   
+   Make sure your user has permission to run Docker commands. On Linux, you may need to add your user to the docker group:
+   ```bash
+   sudo usermod -aG docker $USER
+   ```
+   Then log out and back in for the changes to take effect.
 
 ## How to Use
 
@@ -60,6 +79,8 @@ from your_module import YourLLM
 llm_instance = YourLLM()  # Update with your LLM class
 ```
 
+And change the number of judge workers (recommended to <= physical CPU cores).
+
 ### Step 3: Run the Benchmark
 
 Execute the benchmark script:
@@ -71,16 +92,19 @@ python benchmark.py
 The script will:
 1. Load the LiveCodeBench-Pro dataset from Hugging Face
 2. Process each problem with your LLM
-3. Save the results to `benchmark_result.json`
+3. Extract C++ code from LLM responses automatically
+4. Submit solutions to the integrated judge system for evaluation
+5. Collect judge results and generate comprehensive statistics
+6. Save the results to `benchmark_result.json`
 
-### Step 4: Submit Your Results
+### (Optional) Step 4: Submit Your Results
 
-Send your `benchmark_result.json` file to zz4242@nyu.edu for evaluation.
+Email your `benchmark_result.json` file to zz4242@nyu.edu to have it displayed on the leaderboard.
 
 Please include the following information in your submission:
 - LLM name and version
 - Any specific details
-- Contact information for results
+- Contact information
 
 ## Understanding the Codebase
 
@@ -95,11 +119,28 @@ This file defines the abstract interface for LLM integration:
 The main benchmarking script that:
 - Loads the dataset
 - Processes each problem through your LLM
-- Collects and saves results
+- Extracts C++ code from responses
+- Submits solutions to the judge system
+- Collects results and generates statistics
+- Saves comprehensive results with judge verdicts
+
+### judge.py
+
+Contains the judge system integration:
+- `Judge`: Abstract base class for judge implementations
+- `LightCPVerifierJudge`: LightCPVerifier integration for local solution evaluation
+- Automatic problem data downloading from Hugging Face
+
+### util.py
+
+Utility functions for code processing:
+- `extract_longest_cpp_code()`: Intelligent C++ code extraction from LLM responses
+
 
 ### Dataset
 
-The benchmark uses the [anonymous1926/anonymous_dataset](https://huggingface.co/datasets/anonymous1926/anonymous_dataset/) dataset from Hugging Face, which contains competitive programming problems with varying difficulty levels.
+The benchmark uses the [QAQAQAQAQ/LiveCodeBench-Pro](https://huggingface.co/datasets/QAQAQAQAQ/LiveCodeBench-Pro) and [QAQAQAQAQ/LiveCodeBench-Pro-Testcase](https://huggingface.co/datasets/QAQAQAQAQ/LiveCodeBench-Pro-Testcase) datasets from Hugging Face, which contains competitive programming problems with varying difficulty levels.
+
 
 
 
