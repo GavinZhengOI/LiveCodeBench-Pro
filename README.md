@@ -1,6 +1,8 @@
 # LiveCodeBench Pro - LLM Benchmarking Toolkit
 
-![image](https://github.com/user-attachments/assets/3a7ace9a-ffb8-484c-83b2-96aa9037e846)
+<img width="2722" height="1732" alt="CleanShot 2025-09-27 at 20 13 02@2x" src="https://github.com/user-attachments/assets/476cbfc7-45c8-49ac-bf94-10799e713f5e" />
+
+
 
 
 This repository contains a benchmarking toolkit for evaluating Large Language Models (LLMs) on competitive programming tasks. The toolkit provides a standardized way to test your LLM's code generation capabilities across a diverse set of problems.
@@ -73,14 +75,14 @@ The script will:
 2. Process each problem with your LLM
 3. Save the results to `benchmark_result.json`
 
-### Step 4: Submit Your Results
+### (Optional) Step 4: Submit Your Results
 
-Send your `benchmark_result.json` file to zz4242@nyu.edu for evaluation.
+Email your `benchmark_result.json` file to zz4242@nyu.edu to have it displayed on the leaderboard.
 
 Please include the following information in your submission:
 - LLM name and version
 - Any specific details
-- Contact information for results
+- Contact information
 
 ## Understanding the Codebase
 
@@ -99,7 +101,7 @@ The main benchmarking script that:
 
 ### Dataset
 
-The benchmark uses the [anonymous1926/anonymous_dataset](https://huggingface.co/datasets/anonymous1926/anonymous_dataset/) dataset from Hugging Face, which contains competitive programming problems with varying difficulty levels.
+The benchmark uses the [QAQAQAQAQ/LiveCodeBench-Pro](https://huggingface.co/datasets/QAQAQAQAQ/LiveCodeBench-Pro) and [QAQAQAQAQ/LiveCodeBench-Pro-Testcase](https://huggingface.co/datasets/QAQAQAQAQ/LiveCodeBench-Pro-Testcase) datasets from Hugging Face, which contains competitive programming problems with varying difficulty levels.
 
 
 
