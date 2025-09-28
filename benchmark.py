@@ -118,7 +118,7 @@ def print_stats(dataset: DatasetDict, problem_set: dict[str, ProblemTestState]):
 
 
 if __name__ == "__main__":
-    dataset = load_dataset("anonymous1926/anonymous_dataset")
+    dataset = load_dataset("QAQAQAQAQ/LiveCodeBench-Pro")
     problem_set = get_problem_set(dataset)
     with LightCPVerifierJudge(worker=worker) as judge:
         for problem in tqdm.tqdm(problem_set.values(), desc="Generating solutions"):
