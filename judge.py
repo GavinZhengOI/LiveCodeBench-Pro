@@ -58,6 +58,8 @@ class LightCPVerifierJudge(Judge):
             logger.info(f"Image '{self.IMAGE_NAME}' found locally.")
         except docker.errors.ImageNotFound:
             logger.warning(f"Image '{self.IMAGE_NAME}' not found. Building it now...")
+            os.system("cp entrypoint-patch.sh LightCPVerifier/entrypoint.sh")
+            logger.info("Applied CPU pinning patch.")
             self.docker_client.images.build(
                 path=self.REPO_DIR,
                 tag=self.IMAGE_NAME,
