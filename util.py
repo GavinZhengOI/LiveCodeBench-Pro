@@ -102,3 +102,8 @@ def extract_longest_cpp_code(text):
                 return candidate_code
 
     return None
+
+def extract_python_code(text):
+    fenced_pattern = r"(?m)^```python\s*\n(.*?)\n```"
+    fenced_blocks = re.findall(fenced_pattern, text, flags=re.DOTALL)
+    return fenced_blocks[-1].strip() if fenced_blocks else None

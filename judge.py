@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class SupportedLanguage(Enum):
     CPP = "cpp"
     PYTHON3 = "python3"
-    PYPY3 = "pypy3"
+    PYPY = "pypy"
 
 class Judge(ABC):
     @abstractmethod

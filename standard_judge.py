@@ -9,7 +9,7 @@ import time
 from tempfile import TemporaryFile
 from judge import LightCPVerifierJudge, SupportedLanguage, ProblemNotFoundError
 import traceback
-from util import extract_longest_cpp_code
+from util import extract_longest_cpp_code, extract_python_code
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("standard_judge")
@@ -63,7 +63,7 @@ def prepare_inputs() -> list[ProblemTestState]:
     for item in raw_data:
         item = BenchmarkResult(**item)
         if not item.code:
-            item.code = extract_longest_cpp_code(item.text_response)
+            item.code = extract_longest_cpp_code(item.text_response) or extract_python_code(item.text_response)
         data.append(ProblemTestState(**item.model_dump()))
     logger.info(f"Fetched {len(data)} problems to judge")
     return data
@@ -108,16 +108,22 @@ def append_log(log: str):
     resp.raise_for_status()
     logger.info("Log appended successfully")
 
+def detect_language(code: str) -> SupportedLanguage:
+    if code.strip().startswith("#include"):
+        return SupportedLanguage.CPP
+    return SupportedLanguage.PYPY
+
 def main():
     inputs = prepare_inputs()
     update_status("running")
     with LightCPVerifierJudge(worker=1) as judge:
-        for item in tqdm.tqdm(inputs, desc="Submitting solutions"):
+        for index, item in enumerate(inputs):
+            logger.info("Submitting problem %d/%d: %s", index + 1, len(inputs), item.problem_id)
             if not item.code:
                 item.judge_result = "Judge Failed"
                 continue
             try:
-                item.submission_id = judge.submit(item.problem_id, SupportedLanguage.CPP, item.code)
+                item.submission_id = judge.submit(item.problem_id, detect_language(item.code), item.code)
             except ProblemNotFoundError:
                 logger.warning(f"Problem {item.problem_id} not found in judge dataset.")
                 item.judge_result = "Judge Failed"
@@ -126,7 +132,8 @@ def main():
                 logger.error(f"Error submitting problem {item.problem_id}: {e}")
                 item.judge_result = "Judge Failed"
                 continue
-        for item in tqdm.tqdm(inputs, desc="Fetching results"):
+        for index, item in enumerate(inputs):
+            logger.info("Fetching result for problem %d/%d: %s", index + 1, len(inputs), item.problem_id)
             if not item.submission_id:
                 continue
             while True:
