@@ -159,7 +159,9 @@ class LightCPVerifierJudge(Judge):
         if response.status_code != 200:
             print(response.text)
         response.raise_for_status()
-        return response.json()["sid"]
+        sid = response.json()["sid"]
+        logger.info(f"Submitted problem '{problem_id}' with submission ID {sid}.")
+        return sid
 
     def get_result(self, submission_id: int) -> str:
         response = requests.get(f"{self.base_url}/result/{submission_id}")
@@ -167,6 +169,7 @@ class LightCPVerifierJudge(Judge):
             return "Judging"
         response.raise_for_status()
         result = response.json()
+        logger.info(f"Result for submission {submission_id}: {result}")
         if result["status"] == "queued":
             return "Judging"
         if result["status"] == "error":
