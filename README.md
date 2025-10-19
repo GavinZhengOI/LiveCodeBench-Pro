@@ -1,7 +1,9 @@
 # LiveCodeBench Pro - LLM Benchmarking Toolkit
 
 <p align="center">
-<img width="1415" height="420" alt="image" src="https://github.com/user-attachments/assets/2795fbe8-df64-4664-b834-33346157973e" />
+
+<img width="1415" height="420" alt="image" src="https://github.com/user-attachments/assets/f5a7a439-3526-4ff4-97ce-c325d4ddc8fb" />
+
 </p>
 
 This repository contains a benchmarking toolkit for evaluating Large Language Models (LLMs) on competitive programming tasks. The toolkit provides a standardized way to test your LLM's code generation capabilities across a diverse set of problems.
