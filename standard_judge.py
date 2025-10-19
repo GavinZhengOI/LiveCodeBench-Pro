@@ -4,7 +4,7 @@ import logging
 import pydantic
 import typing
 import json
-import tqdm
+import io
 import time
 from tempfile import TemporaryFile
 from judge import LightCPVerifierJudge, SupportedLanguage, ProblemNotFoundError
@@ -12,6 +12,11 @@ import traceback
 from util import extract_longest_cpp_code, extract_python_code
 
 logging.basicConfig(level=logging.INFO)
+root_logger = logging.getLogger()
+log_stringio = io.StringIO()
+handler = logging.StreamHandler(log_stringio)
+root_logger.addHandler(handler)
+
 logger = logging.getLogger("standard_judge")
 
 API_BASE = "https://webhook.cp-bench.orzzh.com"
@@ -108,6 +113,9 @@ def append_log(log: str):
     resp.raise_for_status()
     logger.info("Log appended successfully")
 
+def flush_log():
+    append_log("Python logging: " + log_stringio.getvalue())
+
 def detect_language(code: str) -> SupportedLanguage:
     if code.strip().startswith("#include"):
         return SupportedLanguage.CPP
@@ -147,10 +155,12 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+        flush_log()
         update_status("finished")
     except Exception as e:
         logger.error(f"Error during judging process: {e}")
         traceback_str = traceback.format_exc()
         logger.error(traceback_str)
+        flush_log()
         append_log(f"Python error: {e}, Traceback: {traceback_str}")
         update_status("failed")
