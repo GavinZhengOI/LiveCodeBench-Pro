@@ -31,6 +31,9 @@ class Judge(ABC):
     @abstractmethod
     def get_result(self, submission_id: int) -> str:
         pass
+    @abstractmethod
+    def get_result_dict(self, submission_id: int) -> dict:
+        pass
 
 class ProblemNotFoundError(Exception):
     pass
@@ -175,6 +178,19 @@ class LightCPVerifierJudge(Judge):
         if result["status"] == "error":
             return "Judge Failed"
         return result["result"]
+    
+    def get_result_dict(self, submission_id: int) -> dict:
+        response = requests.get(f"{self.base_url}/result/{submission_id}")
+        if response.status_code == 404:
+            return {"verdict": "Judging", "data": None}
+        response.raise_for_status()
+        result = response.json()
+        logger.info(f"Result for submission {submission_id}: {result}")
+        if result["status"] == "queued":
+            return {"verdict": "Judging", "data": result}
+        if result["status"] == "error":
+            return {"verdict": "Judge Failed", "data": result}
+        return {"verdict": result["result"], "data": result}
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

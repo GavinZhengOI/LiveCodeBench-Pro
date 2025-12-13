@@ -14,6 +14,8 @@ anyio==4.10.0
     #   openai
 attrs==25.3.0
     # via aiohttp
+cachetools==6.2.3
+    # via google-auth
 certifi==2025.8.3
     # via
     #   httpcore
@@ -45,6 +47,30 @@ fsspec==2025.3.0
     # via
     #   datasets
     #   huggingface-hub
+google-api-core==2.28.1
+    # via google-cloud-secret-manager
+google-auth==2.43.0
+    # via
+    #   google-api-core
+    #   google-cloud-secret-manager
+google-cloud-secret-manager==2.25.0
+    # via livecodebench-pro
+googleapis-common-protos==1.72.0
+    # via
+    #   google-api-core
+    #   grpc-google-iam-v1
+    #   grpcio-status
+grpc-google-iam-v1==0.14.3
+    # via google-cloud-secret-manager
+grpcio==1.76.0
+    # via
+    #   google-api-core
+    #   google-cloud-secret-manager
+    #   googleapis-common-protos
+    #   grpc-google-iam-v1
+    #   grpcio-status
+grpcio-status==1.76.0
+    # via google-api-core
 h11==0.16.0
     # via httpcore
 hf-xet==1.1.10 ; platform_machine == 'aarch64' or platform_machine == 'amd64' or platform_machine == 'arm64' or platform_machine == 'x86_64'
@@ -83,16 +109,38 @@ packaging==25.0
     #   huggingface-hub
 pandas==2.3.2
     # via datasets
+pika==1.3.2
+    # via livecodebench-pro
 propcache==0.3.2
     # via
     #   aiohttp
     #   yarl
+proto-plus==1.26.1
+    # via
+    #   google-api-core
+    #   google-cloud-secret-manager
+protobuf==6.33.2
+    # via
+    #   google-api-core
+    #   google-cloud-secret-manager
+    #   googleapis-common-protos
+    #   grpc-google-iam-v1
+    #   grpcio-status
+    #   proto-plus
 pyarrow==21.0.0
     # via datasets
+pyasn1==0.6.1
+    # via
+    #   pyasn1-modules
+    #   rsa
+pyasn1-modules==0.4.2
+    # via google-auth
 pydantic==2.11.9
     # via openai
 pydantic-core==2.33.2
     # via pydantic
+pyjwt==2.10.1
+    # via livecodebench-pro
 python-dateutil==2.9.0.post0
     # via pandas
 pytz==2025.2
@@ -107,7 +155,10 @@ requests==2.32.5
     # via
     #   datasets
     #   docker
+    #   google-api-core
     #   huggingface-hub
+rsa==4.9.1
+    # via google-auth
 six==1.17.0
     # via python-dateutil
 sniffio==1.3.1
@@ -124,6 +175,7 @@ typing-extensions==4.15.0
     # via
     #   aiosignal
     #   anyio
+    #   grpcio
     #   huggingface-hub
     #   openai
     #   pydantic
